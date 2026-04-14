@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Interior Design Consultation</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:    #f9f4ee;
+      --warm:     #ede4d6;
+      --sand:     #d9c9b0;
+      --bronze:   #a07850;
+      --walnut:   #6b4226;
+      --espresso: #2e1a0e;
+      --gold:     #c9a96e;
+      --off-white:#fdfaf6;
+      --shadow:   rgba(46,26,14,0.14);
+    }
+
+    html, body {
+      min-height: 100vh;
+      background-color: var(--espresso);
+      background-image:
+        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(201,169,110,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 70% at 85% 80%, rgba(107,66,38,0.35) 0%, transparent 55%),
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a96e' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      font-family: 'Jost', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 16px;
+    }
+
+    .page {
+      display: flex;
+      width: 100%;
+      max-width: 900px;
+      min-height: 600px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,169,110,0.2);
+      animation: fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity:0; transform: translateY(32px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+
+    /* ── Left panel ── */
+    .panel-left {
+      flex: 0 0 320px;
+      background:
+        linear-gradient(160deg, rgba(46,26,14,0.7) 0%, rgba(46,26,14,0.92) 100%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23a07850'/%3E%3Cstop offset='1' stop-color='%236b4226'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='600' fill='url(%23g)'/%3E%3Ccircle cx='80' cy='120' r='90' fill='%23c9a96e' fill-opacity='.12'/%3E%3Ccircle cx='320' cy='450' r='120' fill='%23a07850' fill-opacity='.15'/%3E%3Cpath d='M0 300 Q100 200 200 300 T400 300' stroke='%23c9a96e' stroke-opacity='.1' stroke-width='1' fill='none'/%3E%3C/svg%3E") center/cover;
+      padding: 52px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .panel-left::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(201,169,110,0.08) 0%, transparent 50%, rgba(201,169,110,0.05) 100%);
+      pointer-events: none;
+    }
+
+    .brand { position: relative; }
+
+    .brand-icon {
+      width: 48px; height: 48px;
+      border: 1.5px solid rgba(201,169,110,0.6);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      margin-bottom: 24px;
+      background: rgba(201,169,110,0.1);
+    }
+
+    .brand-tagline {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--gold);
+      font-size: 13px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .brand-title {
+      font-weight: 300;
+      color: var(--off-white);
+      font-size: 36px;
+      line-height: 1.15;
+    }
+
+    .brand-title span { color: var(--gold); }
+
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(to right, var(--gold), transparent);
+      margin: 24px 0;
+    }
+
+    .brand-desc {
+      color: rgba(253,250,246,0.58);
+      font-size: 13.5px;
+      font-weight: 300;
+      line-height: 1.75;
+      letter-spacing: 0.2px;
+    }
+
+    .features {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      animation: fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    .feature:nth-child(1) { animation-delay: 0.15s; }
+    .feature:nth-child(2) { animation-delay: 0.25s; }
+    .feature:nth-child(3) { animation-delay: 0.35s; }
+
+    .feature-dot {
+      flex-shrink: 0;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      margin-top: 7px;
+    }
+
+    .feature-text {
+      font-size: 13px;
+      color: rgba(253,250,246,0.65);
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    .feature-text strong {
+      display: block;
+      color: rgba(253,250,246,0.9);
+      font-weight: 500;
+      font-size: 13.5px;
+      margin-bottom: 1px;
+    }
+
+    .panel-footer {
+      position: relative;
+      font-size: 11.5px;
+      color: rgba(253,250,246,0.3);
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Right panel ── */
+    .panel-right {
+      flex: 1;
+      background: var(--off-white);
+      padding: 52px 48px 48px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-header { margin-bottom: 28px; }
+
+    .form-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: var(--bronze);
+      margin-bottom: 8px;
+    }
+
+    .form-title {
+      font-size: 30px;
+      font-weight: 400;
+      color: var(--espresso);
+      line-height: 1.2;
+    }
+
+    .form-title em {
+      font-style: italic;
+      color: var(--bronze);
+    }
+
+    .mandatory-note {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, rgba(160,120,80,0.07), rgba(201,169,110,0.05));
+      border: 1px solid rgba(160,120,80,0.18);
+      border-left: 3px solid var(--bronze);
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-bottom: 22px;
+      font-size: 12px;
+      color: var(--walnut);
+      font-weight: 400;
+      letter-spacing: 0.2px;
+    }
+
+    .mandatory-note .req-star {
+      color: var(--bronze);
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 20px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+      animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    .field:nth-child(1) { animation-delay: 0.1s; }
+    .field:nth-child(2) { animation-delay: 0.15s; }
+    .field:nth-child(3) { animation-delay: 0.2s; }
+    .field:nth-child(4) { animation-delay: 0.25s; }
+    .field:nth-child(5) { animation-delay: 0.3s; }
+    .field:nth-child(6) { animation-delay: 0.35s; }
+
+    .field label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--walnut);
+      margin-bottom: 7px;
+    }
+
+    .field label .req {
+      color: var(--bronze);
+      margin-left: 2px;
+    }
+
+    .field input {
+      background: var(--cream);
+      border: 1px solid var(--sand);
+      border-radius: 8px;
+      padding: 11px 14px;
+      font-family: 'Jost', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--espresso);
+      outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+      width: 100%;
+      -webkit-appearance: none;
+    }
+
+    .field input::placeholder {
+      color: rgba(107,66,38,0.3);
+      font-weight: 300;
+    }
+
+    .field input:focus {
+      border-color: var(--bronze);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(160,120,80,0.12);
+    }
+
+    .field input:hover {
+      border-color: var(--bronze);
+    }
+
+    .field.full { grid-column: 1 / -1; }
+
+    .gold-line {
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      margin: 8px 0 24px;
+      opacity: 0.5;
+    }
+
+    .submit-wrap { margin-top: 8px; }
+
+    .btn-submit {
+      width: 100%;
+      padding: 14px 20px;
+      background: linear-gradient(135deg, var(--walnut) 0%, var(--bronze) 100%);
+      color: var(--off-white);
+      border: none;
+      border-radius: 10px;
+      font-family: 'Jost', sans-serif;
+      font-size: 13.5px;
+      font-weight: 500;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 6px 20px rgba(107,66,38,0.35);
+    }
+
+    .btn-submit::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(201,169,110,0.3) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(107,66,38,0.45); }
+    .btn-submit:hover::before { opacity: 1; }
+    .btn-submit:active { transform: translateY(0); }
+
+    .form-note {
+      text-align: center;
+      margin-top: 14px;
+      font-size: 11.5px;
+      color: rgba(107,66,38,0.45);
+      font-weight: 300;
+      letter-spacing: 0.3px;
+    }
+
+    @media (max-width: 760px) {
+      .page { flex-direction: column; max-width: 480px; }
+      .panel-left { flex: none; padding: 36px 28px; }
+      .panel-right { padding: 36px 28px; }
+      .row { grid-template-columns: 1fr; }
+    }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Left panel -->
+  <div class="panel-left">
+    <div class="brand">
+      <div class="brand-icon">🏛️</div>
+      <div class="brand-title">Specialist Interior Designers</div>
+      <div class="brand-tagline">Where Spaces Tell <span>Stories</span></div>
+      <div class="divider"></div>
+      <div class="brand-desc">
+        Every great interior begins with a conversation. Share your vision and let our designers craft a space that reflects your life, taste, and aspirations.
+      </div>
+    </div>
+
+    <div class="features">
+      <div class="feature">
+        <div class="feature-dot"></div>
+        <div class="feature-text">
+          <strong>Consultation</strong>
+          One-on-one session with a senior designer
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-dot"></div>
+        <div class="feature-text">
+          <strong>Personalised Mood Board</strong>
+          Curated style concepts tailored to you
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-dot"></div>
+        <div class="feature-text">
+          <strong>Transparent Budgeting</strong>
+          Honest estimates with no hidden costs
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Right panel -->
+  <div class="panel-right">
+
+    <div class="form-header">
+      <div class="form-eyebrow">Book a Session</div>
+      <div class="form-title">Start Your <em>Design Journey</em></div>
+    </div>
+
+    <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00DgL000000XHgQ" method="POST">
+
+      <!-- Hidden mandatory fields -->
+      <input type="hidden" name="oid"        value="00DgL000000XHgQ">
+      <input type="hidden" name="retURL"     value="https://barebase.in/">
+      <input type="hidden" name="company"    value="Direct Enquiry">
+      <input type="hidden" name="lead_source" value="Web">
+      <input type="hidden" name="status"     value="Open - Not Contacted">
+
+      <div class="mandatory-note">
+        <span class="req-star">*</span>
+        Fields marked with an asterisk are required
+      </div>
+
+      <!-- Name -->
+      <div class="row">
+        <div class="field">
+          <label>First Name</label>
+          <input type="text" name="first_name" maxlength="40" placeholder="Aanya">
+        </div>
+        <div class="field">
+          <label>Last Name <span class="req">*</span></label>
+          <input type="text" name="last_name" maxlength="80" placeholder="Sharma" required>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div class="row">
+        <div class="field">
+          <label>Email Address <span class="req">*</span></label>
+          <input type="email" name="email" maxlength="80" placeholder="aanya@email.com" required>
+        </div>
+        <div class="field">
+          <label>Phone Number <span class="req">*</span></label>
+          <input type="tel" name="phone" maxlength="40" placeholder="+91 98765 43210" required>
+        </div>
+      </div>
+
+      <!-- City -->
+      <div class="row">
+        <div class="field full">
+          <label>City</label>
+          <input type="text" name="city" maxlength="40" placeholder="Mumbai, Delhi, Bangalore…">
+        </div>
+      </div>
+
+      <div class="gold-line"></div>
+
+      <!-- Budget -->
+      <div class="row">
+        <div class="field full">
+          <label>Budget</label>
+          <input type="text" name="00NgL00003f7ZUY" maxlength="20" placeholder="e.g. ₹50,00,000">
+        </div>
+      </div>
+
+      <div class="submit-wrap">
+        <button type="submit" class="btn-submit">Request My Consultation</button>
+        <p class="form-note">🔒 Your details are confidential and never shared</p>
+      </div>
+
+    </form>
+  </div>
+
+</div>
+
+</body>
+</html>
